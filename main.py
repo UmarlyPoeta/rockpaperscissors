@@ -39,7 +39,7 @@ def main():
         print(f"\nYou: {choice}")
         print(f"Me: {enemy_choice}\n")
 
-        print(game(choice,enemy_choice))
+        print(game(choice,enemy_choice,listofchoices))
         
         print("\n\n Press Enter")
         input()
@@ -63,33 +63,23 @@ def restart_or_no():
             raise ValueError
         
 
-def game(mchoice,echoice):
-    match (mchoice):
-        case "rock":
-            match (echoice):
-                case "rock":
-                    return f"Draw!"
-                case "paper":
-                    return f"You win!"
-                case "scissors":
-                    return f"You lost!"
-        case "paper":
-            match (echoice):
-                case "rock":
-                    return f"You win!"
-                case "paper":
-                    return f"Draw!"
-                case "scissors":
-                    return f"You lost!"
-        case "scissors":
-            match (echoice):
-                case "rock":
-                    return f"You lost!"
-                case "paper":
-                    return f"You Won!"
-                case "scissors":
-                    return f"Draw!"
-
+def game(mchoice,echoice,listofchoices):
+    mc=listofchoices.index(mchoice)
+    ec=listofchoices.index(echoice)
+    if mc+1>len(listofchoices):
+        if listofchoices[0]==listofchoices[ec]:
+            return f"You lost!"
+    elif listofchoices[mc+1]==listofchoices[ec]:
+        return f"You lost!"
+    elif listofchoices[mc]==listofchoices[ec]:
+        return f"Draw!"
+    elif mc-1==-1:
+        if listofchoices[2]==listofchoices[ec]:
+            return f"You won!"
+    elif listofchoices[mc-1]==listofchoices[ec]:
+        return f"You won!"
+        
+        
 def get_choice():
     choice=input().strip()
     isword=re.search(r"^(rock|paper|scissors)$",choice,flags=re.I)
